@@ -1,4 +1,4 @@
 package com.hello.boardchat.dto;
 
-public class BoardUpdateDto {
+public class PostUpdateDto {
 }
