@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Optional;
 
-//@Mapper
+@Mapper
 public interface MemberMapper {
 
     Optional<Member> findByLoginId(String loginId);

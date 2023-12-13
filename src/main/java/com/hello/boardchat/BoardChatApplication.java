@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @Slf4j
-@Import({PostConfig.class, WebConfig.class, WebMvcConfig.class})
+@Import({PostConfig.class, WebConfig.class, WebMvcConfig.class, LoginConfig.class})
 @SpringBootApplication(scanBasePackages = "com.hello.boardchat.controller")
 public class BoardChatApplication {
 
