@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="css/bootstrap.min.css" rel="stylesheet">
+    <title>회원</title>
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>환영합니다</h2>
+        <div class="text-end">
+            <form th:action="@{/logout}" method="post">
+                <button class="w-100 btn btn-dark btn-lg" type="submit">
+                    로그아웃
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <h2 th:if="${param.status}" th:text="'저장 완료!'"></h2>
+
+    <div>
+        <label for="loginId">회원ID</label>
+        <input type="text" id="loginId" name="loginId" class="form-control"
+               value="1" th:value="${member.loginId}" readonly>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='editUserForm.html'"
+                    th:onclick="|location.href='@{/members/{id}/edit(id=${member.id})}'|"
+                    type="button">정보 수정
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='board.html'"
+                    th:onclick="|location.href='@{/board}'|"
+                    type="button">게시판
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

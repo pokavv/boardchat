@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostController {
 
@@ -49,7 +49,7 @@ public class PostController {
         Post savePost = postService.save(post);
         redirectAttributes.addAttribute("postId", savePost.getPostId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/board/{postId}";
+        return "redirect:/posts/{postId}";
     }
 
     @GetMapping("/{postId}/edit")
@@ -65,12 +65,12 @@ public class PostController {
     public String edit(@PathVariable Long postId,
                        @ModelAttribute PostUpdateDto updateParam) {
         postService.update(postId, updateParam);
-        return "redirect:/board/{postId}";
+        return "redirect:/posts/{postId}";
     }
 
-    @DeleteMapping("board/{postId}/delete")
+    @DeleteMapping("posts/{postId}/delete")
     public String delete(@PathVariable Long postId) {
         postService.delete(postId);
-        return "redirect:/board";
+        return "redirect:/posts";
     }
 }
