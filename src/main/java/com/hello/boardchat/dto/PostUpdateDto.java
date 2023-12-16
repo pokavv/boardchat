@@ -11,7 +11,7 @@ public class PostUpdateDto {
     private String postBody;
     private LocalDateTime postDate;
 
-    public PostUpdateDto() {};
+    public PostUpdateDto() {}
 
     public PostUpdateDto(String title, String postBody, LocalDateTime postDate) {
         this.title = title;
