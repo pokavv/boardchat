@@ -3,6 +3,8 @@ package com.hello.boardchat;
 import com.hello.boardchat.config.LoginConfig;
 import com.hello.boardchat.config.WebConfig;
 import com.hello.boardchat.config.WebMvcConfig;
+import com.hello.boardchat.config.comment.CommentConfig;
+import com.hello.boardchat.config.file.FileConfig;
 import com.hello.boardchat.config.post.PostConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @Slf4j
-@Import({PostConfig.class, WebConfig.class, WebMvcConfig.class, LoginConfig.class})
+@Import({PostConfig.class, CommentConfig.class, FileConfig.class ,WebConfig.class, WebMvcConfig.class, LoginConfig.class})
 @SpringBootApplication(scanBasePackages = "com.hello.boardchat.controller")
 public class BoardChatApplication {
 
