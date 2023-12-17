@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="css/bootstrap.min.css" rel="stylesheet">
+    <title>board</title>
+</head>
+<body>
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>게시판</h2>
+        <div class="text-end" style="display: inline-block; margin: 5px; float: right;">
+            <form th:action="@{/logout}" method="post">
+                <button class="w-100 btn btn-dark float-end" type="submit">
+                    로그아웃
+                </button>
+            </form>
+        </div>
+    </div>
+    <form th:object="${postSearchCond}" method="get" class="form-inline">
+        <div class="row">
+            <div class="col">
+                <input type="text" th:field="*{title}" class="form-control" placeholder="제목"/>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-secondary mb-2">검색</button>
+            </div>
+            <div class="col"></div>
+            <div class="col">
+                <div class="col">
+                    <button class="btn btn-primary float-end"
+                            onclick="location.href='addPostForm.html'"
+                            th:onclick="|location.href='@{/posts/add}'|"
+                            type="button">작성</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post : ${posts}">
+                <td>
+                    <a href="posts.html" th:href="@{/posts/{id}(id=${post.postId})}" th:text="${post.title}">
+                        제목
+                    </a>
+                </td>
+                <td>
+                    <a href="posts.html" th:href="@{/posts/{id}(id=${post.postId})}" th:text="${post.postDate}">
+                        게시일
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,8 +1,11 @@
 package com.hello.boardchat.controller.post;
 
+import com.hello.boardchat.domain.FileRequest;
 import com.hello.boardchat.domain.Post;
 import com.hello.boardchat.dto.PostUpdateDto;
+import com.hello.boardchat.repository.file.FileUtils;
 import com.hello.boardchat.repository.post.PostSearchCond;
+import com.hello.boardchat.service.file.FileService;
 import com.hello.boardchat.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,8 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final FileService fileService;
+    private final FileUtils fileUtils;
 
     @GetMapping
     public String posts(@ModelAttribute("postSearchCond")PostSearchCond cond,
@@ -47,6 +52,9 @@ public class PostController {
     public String addPost(@ModelAttribute Post post,
                           RedirectAttributes redirectAttributes){
         Post savePost = postService.save(post);
+        List<FileRequest> files = fileUtils.uploadFiles(post.getFiles());
+        fileService.saveFiles(savePost.getPostId(), files);
+
         redirectAttributes.addAttribute("postId", savePost.getPostId());
         redirectAttributes.addAttribute("status", true);
         return "redirect:/posts/{postId}";

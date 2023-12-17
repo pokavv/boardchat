@@ -2,8 +2,11 @@ package com.hello.boardchat.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class Post {
@@ -13,6 +16,7 @@ public class Post {
     private String postBody;
     private LocalDateTime postDate;
     private Boolean isNotice;
+    private List<MultipartFile> files = new ArrayList<>(); // 첨부파일
 
     public Post() {}
 

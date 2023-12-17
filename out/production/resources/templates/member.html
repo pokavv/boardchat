@@ -29,7 +29,7 @@
     <div>
         <label for="loginId">회원ID</label>
         <input type="text" id="loginId" name="loginId" class="form-control"
-               value="1" th:value="${user.loginId}" readonly>
+               value="1" th:value="${member.loginId}" readonly>
     </div>
 
     <hr class="my-4">
@@ -44,7 +44,7 @@
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='posts.html'"
+                    onclick="location.href='board.html'"
                     th:onclick="|location.href='@{/board}'|"
                     type="button">게시판
             </button>
