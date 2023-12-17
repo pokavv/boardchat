@@ -8,11 +8,11 @@
         ) values
         <foreach item="fileRequest" collection="list" separator=",">
             (
-            #(fileRequest.postId),
-            #(fileRequest.originalName),
-            #(fileRequest.saveName),
-            #(fileRequest.fileSize),
-            #(fileRequest.uploadDate)
+            #{fileRequest.postId},
+            #{fileRequest.originalName},
+            #{fileRequest.saveName},
+            #{fileRequest.fileSize},
+            #{fileRequest.uploadDate}
             )
         </foreach>
     </insert>
