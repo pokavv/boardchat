@@ -1,6 +1,7 @@
 package com.hello.boardchat.service.comment;
 
-import com.hello.boardchat.domain.Comment;
+import com.hello.boardchat.domain.CommentRequest;
+import com.hello.boardchat.domain.CommentResponse;
 import com.hello.boardchat.dto.CommentUpdateDto;
 import com.hello.boardchat.repository.comment.CommentRepository;
 import com.hello.boardchat.repository.comment.CommentSearchCond;
@@ -16,8 +17,13 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
 
     @Override
-    public Comment insertComment(Comment comment) {
-        return commentRepository.insertComment(comment);
+    public CommentResponse commentFindById(Long commentId) {
+        return commentRepository.commentFindById(commentId);
+    }
+
+    @Override
+    public CommentRequest insertComment(Long postId, CommentRequest commentRequest) {
+        return commentRepository.insertComment(postId, commentRequest);
     }
 
     @Override
@@ -26,12 +32,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Integer countComment(Comment comment) {
-        return commentRepository.countComment(comment);
+    public Integer countComment(CommentRequest commentRequest) {
+        return commentRepository.countComment(commentRequest);
     }
 
     @Override
-    public List<Comment> commentList(CommentSearchCond cond) {
+    public List<CommentRequest> commentList(CommentSearchCond cond) {
         return commentRepository.commentList(cond);
     }
 

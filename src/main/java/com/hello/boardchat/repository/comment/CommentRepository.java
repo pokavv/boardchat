@@ -1,19 +1,22 @@
 package com.hello.boardchat.repository.comment;
 
-import com.hello.boardchat.domain.Comment;
+import com.hello.boardchat.domain.CommentRequest;
+import com.hello.boardchat.domain.CommentResponse;
 import com.hello.boardchat.dto.CommentUpdateDto;
 
 import java.util.List;
 
 public interface CommentRepository {
 
-    Comment insertComment(Comment comment);
+    CommentRequest insertComment(Long postId, CommentRequest commentRequest);
 
     void updateComment(Long commentId, CommentUpdateDto updateParam);
 
-    Integer countComment(Comment comment);
+    CommentResponse commentFindById(Long postId);
 
-    List<Comment> commentList(CommentSearchCond cond);
+    Integer countComment(CommentRequest commentRequest);
+
+    List<CommentRequest> commentList(CommentSearchCond cond);
 
     void deleteComment(Long commentId);
 }

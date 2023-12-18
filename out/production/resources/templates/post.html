@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/bootstrap.min.css}"
           href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="../static/js/function.js"></script>
     <title th:text="${post.title}">포스팅</title>
     <style>
         .container {
@@ -42,6 +43,22 @@
             <label for="postBody">내용</label>
             <textarea id="postBody" name="postBody" class="form-control" rows="10"
                       th:text="${post.postBody}" readonly></textarea>
+        </div>
+        <!-- comment -->
+        <div class="comment">
+            <fieldset>
+                <legend class="skipinfo">댓글 입력</legend>
+                <div class="commentInput">
+                    <p>
+                        <textarea id="commentBody" name="commentBody" onkeyup="countingLength(this);"
+                                  rows="4" placeholder="댓글을 입력해 주세요".></textarea>
+                        <span>
+                            <button type="button" class="w-100 btn primary" onclick="saveComment();">등록</button>
+                            <i id="counter">0/300자</i>
+                        </span>
+                    </p>
+                </div>
+            </fieldset>
         </div>
         <hr class="my-4">
         <div class="row">

@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/css/bootstrap.min.css}"
-          href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link th:href="@{/css/bootstrap.min.css}"href="css/bootstrap.min.css" rel="stylesheet">
     <title th:text="${post.title}">포스팅</title>
     <style>
         .container {
@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <div class="py-5 text-center">
             <h2>게시글</h2>
             <div class="text-end" style="float: right;">
@@ -43,6 +43,16 @@
             <textarea id="postBody" name="postBody" class="form-control" rows="10"
                       th:text="${post.postBody}" readonly></textarea>
         </div>
+        <!-- comment -->
+        <div class="cm_write">
+            <fieldset>
+                <legend class="skip info">댓글 입력</legend>
+                <div class="cm_input">
+                    <p><textarea id="commentBody" name="commentBody" onkeyup="countingLength(this);" cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></p>
+                    <span><button type="button" class="btn-save" onclick="saveComment();">등 록</button> <i id="counter">0/300자</i></span>
+                </div>
+            </fieldset>
+        </div>
         <hr class="my-4">
         <div class="row">
             <div class="col">
@@ -67,6 +77,42 @@
             </div>
         </div>
     </div>
+<script type="text/javascript">
+    function countingLength(commentBody) {
+        if (commentBody.value.length > 300) {
+            alert('댓글을 300자 이하로 입력해 주세요.');
+            commentBody.value = commentBody.value.substring(0, 300);
+            commentBody.focus();
+        }
 
+        document.getElementById('counter').innerText = commentBody.value.length + '/300자';
+    }
+
+    function saveComment() {
+        const commentBody = document.getElementById('commentBody');
+        isValid(commentBody, '댓글');
+
+        const postId = [[ ${post.postId} ]];
+        const.params = {
+            postId : postId,
+            commentBody : commentBody.value
+        }
+
+        $.ajax({
+            url: '/posts/${postId}/comments',
+            type: 'post',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(params),
+            async: false,
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        })
+    }
+</script>
 </body>
 </html>

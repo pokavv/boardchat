@@ -1,21 +1,23 @@
 package com.hello.boardchat.repository.comment;
 
-import com.hello.boardchat.domain.Comment;
+import com.hello.boardchat.domain.CommentRequest;
+import com.hello.boardchat.domain.CommentResponse;
 import com.hello.boardchat.dto.CommentUpdateDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mapper
 public interface CommentMapper {
 
-    int countComment(Comment comment);
+    int countComment(CommentRequest commentRequest);
 
-    List<Comment> commentList(CommentSearchCond cond);
+    List<CommentRequest> commentList(CommentSearchCond cond);
 
-    void insertComment(Comment comment);
+    CommentResponse commentFindById(Long commentId);
+
+    void insertComment(Long postId, CommentRequest commentRequest);
 
     void updateComment(@Param("commentId") Long commentId,
                        @Param("updateParam") CommentUpdateDto updateParam);

@@ -8,10 +8,17 @@
         where post_id=#{postId}
     </select>
 
-    <select id="commentList" resultType="Comment">
+    <select id="commentList" resultType="CommentRequest">
         select *
         from comment_table
         where post_id=#{postId}
+    </select>
+
+    <select id="commentFindById" parameterType="long"
+            resultType="com.hello.boardchat.domain.CommentResponse">
+        select *
+        from comment_table
+        where comment_id=#{commentId}
     </select>
 
     <insert id="insertComment" useGeneratedKeys="true" keyProperty="commentId">

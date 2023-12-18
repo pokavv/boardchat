@@ -1,6 +1,7 @@
 package com.hello.boardchat.service.comment;
 
-import com.hello.boardchat.domain.Comment;
+import com.hello.boardchat.domain.CommentRequest;
+import com.hello.boardchat.domain.CommentResponse;
 import com.hello.boardchat.dto.CommentUpdateDto;
 import com.hello.boardchat.repository.comment.CommentSearchCond;
 
@@ -8,13 +9,15 @@ import java.util.List;
 
 public interface CommentService {
 
-    Comment insertComment(Comment comment);
+    CommentResponse commentFindById(Long commentId);
+
+    CommentRequest insertComment(Long postId, CommentRequest commentRequest);
 
     void updateComment(Long commentId, CommentUpdateDto updateParam);
 
-    Integer countComment(Comment comment);
+    Integer countComment(CommentRequest commentRequest);
 
-    List<Comment> commentList(CommentSearchCond cond);
+    List<CommentRequest> commentList(CommentSearchCond cond);
 
     void deleteComment(Long commentId);
 }

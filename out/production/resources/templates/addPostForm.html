@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/bootstrap.min.css}"
           href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="../static/js/fileLogic.js"></script>
+    <script src="../static/js/function.js"></script>
     <title>글작성</title>
     <style>
         .container {
@@ -12,6 +12,12 @@
         }
         .postBody {
             height:200px;
+        }
+        .del_btn {
+            border-color: black;
+        }
+        .fn_add_btn {
+            border-color: black;
         }
     </style>
 </head>
@@ -34,10 +40,10 @@
                 첨부파일
                 <input type="file" name="files" onchange="selectFile(this);"/>
             </label>
-            <button type="button" onclick="removeFile(this);" class="btn del_btn">
+            <button type="button" onclick="removeFile(this);" class="del_btn">
                 <span>삭제</span>
             </button>
-            <button type="button" onclick="addFile();" class="btn fn_add_btn">
+            <button type="button" onclick="addFile();" class="fn_add_btn">
                 <span>파일추가</span>
             </button>
         </div>

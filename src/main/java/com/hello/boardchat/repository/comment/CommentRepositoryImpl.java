@@ -1,9 +1,11 @@
 package com.hello.boardchat.repository.comment;
 
-import com.hello.boardchat.domain.Comment;
+import com.hello.boardchat.domain.CommentRequest;
+import com.hello.boardchat.domain.CommentResponse;
 import com.hello.boardchat.dto.CommentUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,28 +17,37 @@ public class CommentRepositoryImpl implements CommentRepository {
     private final CommentMapper commentMapper;
 
     @Override
-    public Comment insertComment(Comment comment) {
-        comment.setCommentDate(LocalDateTime.now());
-        commentMapper.insertComment(comment);
-        return comment;
+    @Transactional
+    public CommentRequest insertComment(Long postId, CommentRequest commentRequest) {
+        commentRequest.setCommentDate(LocalDateTime.now());
+        commentRequest.setPostId(postId);
+        commentMapper.insertComment(postId, commentRequest);
+        return commentRequest;
     }
 
     @Override
+    @Transactional
     public void updateComment(Long commentId, CommentUpdateDto updateParam) {
         commentMapper.updateComment(commentId, updateParam);
     }
 
     @Override
-    public Integer countComment(Comment comment) {
-        return commentMapper.countComment(comment);
+    public CommentResponse commentFindById(Long postId) {
+        return commentMapper.commentFindById(postId);
     }
 
     @Override
-    public List<Comment> commentList(CommentSearchCond cond) {
+    public Integer countComment(CommentRequest commentRequest) {
+        return commentMapper.countComment(commentRequest);
+    }
+
+    @Override
+    public List<CommentRequest> commentList(CommentSearchCond cond) {
         return commentMapper.commentList(cond);
     }
 
     @Override
+    @Transactional
     public void deleteComment(Long commentId) {
         commentMapper.deleteComment(commentId);
     }
