@@ -30,10 +30,10 @@ public class CommentController {
 
     @PostMapping("/posts/{postId}/comments")
     public CommentResponse saveComment(@PathVariable Long postId,
-                                      @RequestBody CommentRequest commentRequest) {
-        CommentRequest comment = commentService.insertComment(postId, commentRequest);
+                                      @RequestBody CommentRequest params) {
+        log.info("[POST] params={}", params);
+        CommentRequest comment = commentService.insertComment(postId, params);
         Long commentId = comment.getCommentId();
-        log.info("[POST] saveComment={}", comment);
         return commentService.commentFindById(commentId);
     }
 }

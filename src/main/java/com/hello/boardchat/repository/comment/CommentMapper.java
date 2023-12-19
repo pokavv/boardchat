@@ -17,7 +17,8 @@ public interface CommentMapper {
 
     CommentResponse commentFindById(Long commentId);
 
-    void insertComment(Long postId, CommentRequest commentRequest);
+    void insertComment(@Param("postId") Long postId,
+                       @Param("commentRequest") CommentRequest commentRequest);
 
     void updateComment(@Param("commentId") Long commentId,
                        @Param("updateParam") CommentUpdateDto updateParam);

@@ -21,9 +21,9 @@
         where comment_id=#{commentId}
     </select>
 
-    <insert id="insertComment" useGeneratedKeys="true" keyProperty="commentId">
+    <insert id="insertComment" useGeneratedKeys="true">
         insert into comment_table (comment_body, comment_date, is_secret, post_id)
-        values (#{commentBody}, #{commentDate}, default, #{postId})
+        values (#{commentRequest.commentBody}, #{commentRequest.commentDate}, default, #{postId})
     </insert>
 
     <update id="updateComment">

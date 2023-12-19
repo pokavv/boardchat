@@ -1,3 +1,21 @@
+function hasCode(value) {
+    return ((value.charCodeAt(value.length - 1) - 0xAC00) % 28) > 0;
+}
+
+function isValid(target, fieldName, focusTarget) {
+    if (target.value.trim()) {
+        return true;
+    }
+
+    const particle = (hasCode(fieldName)) ? '을' : '를'
+    const elementType = (target.type === 'text' || target.type === 'password' || target.type === 'search' || target.type === 'textarea') ? '입력' : '선택';
+    alert( `${fieldName + particle} ${elementType}해 주세요.` );
+
+    target.value = '';
+    ( !focusTarget ? target : focusTarget).focus();
+    throw new Error(`"${target.id}" is required...`)
+}
+
 function countingLength(commentBody) {
     if (commentBody.value.length > 300) {
         alert('댓글을 300자 이하로 입력해 주세요.');

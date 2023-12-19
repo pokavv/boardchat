@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link th:href="@{/css/bootstrap.min.css}"href="css/bootstrap.min.css" rel="stylesheet">
     <title th:text="${post.title}">포스팅</title>
     <style>
@@ -46,10 +46,11 @@
         <!-- comment -->
         <div class="cm_write">
             <fieldset>
-                <legend class="skip info">댓글 입력</legend>
+                <legend class="skipinfo">댓글 입력</legend>
                 <div class="cm_input">
-                    <p><textarea id="commentBody" name="commentBody" onkeyup="countingLength(this);" cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></p>
-                    <span><button type="button" class="btn-save" onclick="saveComment();">등 록</button> <i id="counter">0/300자</i></span>
+                    <p><textarea id="commentBody" name="commentBody" onkeyup="countingLength(this);"
+                                 cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></p>
+                    <span><button type="button" class="btn-save" onclick="saveComment();">등 록</button><i id="counter">0/300자</i></span>
                 </div>
             </fieldset>
         </div>
@@ -77,42 +78,77 @@
             </div>
         </div>
     </div>
-<script type="text/javascript">
-    function countingLength(commentBody) {
-        if (commentBody.value.length > 300) {
-            alert('댓글을 300자 이하로 입력해 주세요.');
-            commentBody.value = commentBody.value.substring(0, 300);
-            commentBody.focus();
+
+<th:block layout:fragment="script">
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        $(".cm_re_info > button").click(function(){
+		var submenu = $(this).parent().next("div.hide_view");
+		if( submenu.is(":visible") ){
+			submenu.removeClass("open");
+		}else{
+			submenu.addClass("open");
+		}
+	    });
+
+        function hasCode(value) {
+            return ((value.charCodeAt(value.length - 1) - 0xAC00) % 28) > 0;
         }
 
-        document.getElementById('counter').innerText = commentBody.value.length + '/300자';
-    }
-
-    function saveComment() {
-        const commentBody = document.getElementById('commentBody');
-        isValid(commentBody, '댓글');
-
-        const postId = [[ ${post.postId} ]];
-        const.params = {
-            postId : postId,
-            commentBody : commentBody.value
-        }
-
-        $.ajax({
-            url: '/posts/${postId}/comments',
-            type: 'post',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            data: JSON.stringify(params),
-            async: false,
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (request, status, error) {
-                console.log(error);
+        function isValid(target, fieldName, focusTarget) {
+            if (target.value.trim()) {
+                return true;
             }
-        })
-    }
+
+            const particle = (hasCode(fieldName)) ? '을' : '를'
+            const elementType = (target.type === 'text' || target.type === 'password' || target.type === 'search' || target.type === 'textarea') ? '입력' : '선택';
+            alert( `${fieldName + particle} ${elementType}해 주세요.` );
+
+            target.value = '';
+            ( !focusTarget ? target : focusTarget).focus();
+            throw new Error(`"${target.id}" is required...`)
+        }
+
+        // 댓글 길이 카운팅
+        function countingLength(commentBody) {
+            if (commentBody.value.length > 300) {
+                alert('댓글을 300자 이하로 입력해 주세요.');
+                commentBody.value = commentBody.value.substring(0, 300);
+                commentBody.focus();
+            }
+            document.getElementById('counter').innerText = commentBody.value.length + '/300자';
+        }
+
+
+        // 댓글 저장
+        function saveComment() {
+
+            const commentBody = document.getElementById('commentBody');
+            isValid(commentBody, '댓글');
+
+            const postId = [[ ${post.postId} ]];
+            const params = {
+                postId : postId,
+                commentBody : commentBody.value,
+            }
+
+            $.ajax({
+                url : `/posts/${postId}/comments`,
+                type : 'post',
+                contentType : 'application/json; charset=utf-8',
+                dataType : 'json',
+                data : JSON.stringify(params),
+                async : false,
+                success : function (response) {
+                    console.log(response);
+                },
+                error : function (request, status, error) {
+                    console.log(error)
+                }
+            })
+        }
+    /*]]>*/
 </script>
+</th:block>
 </body>
 </html>
