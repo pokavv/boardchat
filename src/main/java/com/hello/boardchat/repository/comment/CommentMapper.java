@@ -13,7 +13,7 @@ public interface CommentMapper {
 
     int countComment(CommentRequest commentRequest);
 
-    List<CommentRequest> commentList(CommentSearchCond cond);
+    List<CommentRequest> commentList(Long postId);
 
     CommentResponse commentFindById(Long commentId);
 

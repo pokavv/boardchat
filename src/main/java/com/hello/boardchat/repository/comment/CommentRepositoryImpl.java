@@ -42,8 +42,8 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<CommentRequest> commentList(CommentSearchCond cond) {
-        return commentMapper.commentList(cond);
+    public List<CommentRequest> commentList(Long postId) {
+        return commentMapper.commentList(postId);
     }
 
     @Override

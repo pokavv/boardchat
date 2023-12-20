@@ -16,7 +16,7 @@ public interface CommentRepository {
 
     Integer countComment(CommentRequest commentRequest);
 
-    List<CommentRequest> commentList(CommentSearchCond cond);
+    List<CommentRequest> commentList(Long postId);
 
     void deleteComment(Long commentId);
 }

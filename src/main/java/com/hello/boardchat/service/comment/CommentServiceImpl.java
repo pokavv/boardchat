@@ -4,7 +4,6 @@ import com.hello.boardchat.domain.CommentRequest;
 import com.hello.boardchat.domain.CommentResponse;
 import com.hello.boardchat.dto.CommentUpdateDto;
 import com.hello.boardchat.repository.comment.CommentRepository;
-import com.hello.boardchat.repository.comment.CommentSearchCond;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +36,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentRequest> commentList(CommentSearchCond cond) {
-        return commentRepository.commentList(cond);
+    public List<CommentRequest> commentList(Long postId) {
+        return commentRepository.commentList(postId);
     }
 
     @Override

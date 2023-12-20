@@ -43,7 +43,12 @@
             <textarea id="postBody" name="postBody" class="form-control" rows="10"
                       th:text="${post.postBody}" readonly></textarea>
         </div>
+
         <!-- comment -->
+        <label for="cm_list">댓글</label>
+        <div id="cm_list" class="cm_list">
+
+        </div>
         <div class="cm_write">
             <fieldset>
                 <legend class="skipinfo">댓글 입력</legend>
@@ -140,11 +145,70 @@
                 data : JSON.stringify(params),
                 async : false,
                 success : function (response) {
+                    alert('저장되었습니다.');
+                    content.value = '';
+                    document.getElementById('counter').innerText = '0/300자';
+                    commentList();
                     console.log(response);
                 },
                 error : function (request, status, error) {
                     console.log(error)
                 }
+            })
+        }
+
+        // 댓글 목록
+        window.onload = () => {
+            commentList();
+        }
+
+        function commentList() {
+            const postId = [[ ${post.postId} ]];
+
+            $.ajax({
+                url : `/posts/${postId}/comments`,
+                type : 'get',
+                dataType : 'json',
+                async : false,
+                success : function (response) {
+
+                    // 1. 조회된 데이터가 없는 경우
+                    if ( !response.length ) {
+                        document.querySelector('.com_list').innerHTML = '<div class="cm_none"><p>등록된 댓글이 없습니다.</p></div>';
+                        return false;
+                    }
+
+                    // 2. 렌더링 할 HTML 을 저장할 변수
+                    let commentHtml = '';
+
+                    // 3. 댓글 HTML 추가
+                    response.forEach(row => {
+                        commentHtml += `
+                            <div>
+                                <span class="writer_img">
+                                <img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/>
+                                </span>
+                                <p class="cm_date">
+                                    <span class=date">${dayjs().format('YYYY-MM-DD HH:mm')}</span>
+                                </p>
+                                <div class="cm_body">
+                                    <div class="txt_content">${row.content}</div>
+                                </div>
+                                <p class="func_btn">
+                                    <button type="button" class="cm_btn"><span class="icons icon_modify">수정</span></button>
+                                    <button type="button" class="cm_btn"><span class="icons icon_del">삭제</span></button>
+                                </p>
+                            </div>
+                            `;
+                            })
+
+                    // 4. class 가 "cm_list" 인 요소를 찾아 HTML 렌더링
+                    document.querySelector('.cm_list').innerHTML = commentHtml;
+                    console.log(response);
+                    },
+                error : function (request, status, error) {
+                    console.log(error)
+                    }
             })
         }
     /*]]>*/
