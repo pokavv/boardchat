@@ -194,18 +194,20 @@
                 url : `/posts/${postId}/comments`,
                 type : 'post',
                 contentType : 'application/json; charset=utf-8',
-                dataType : 'json',
                 data : JSON.stringify(params),
+                dataType : 'script',
                 async : false,
                 success : function (response) {
                     alert('저장되었습니다.');
-                    content.value = '';
+                    commentBody.value = '';
                     document.getElementById('counter').innerText = '0/300자';
                     commentList();
                     console.log(response);
                 },
                 error : function (request, status, error) {
+                    console.log(request)
                     console.log(error)
+                    console.log(status)
                 }
             })
         }
