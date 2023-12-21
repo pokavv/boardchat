@@ -43,6 +43,15 @@
             <textarea id="postBody" name="postBody" class="form-control" rows="10"
                       th:text="${post.postBody}" readonly></textarea>
         </div>
+        <div>
+            <label for="files">첨부파일</label>
+            <tr>
+                <th scope="row"></th>
+                <td id="files" colspan="3">
+
+                </td>
+            </tr>
+        </div>
 
         <!-- comment -->
         <label for="cm_list">댓글</label>
@@ -130,6 +139,7 @@
         // 댓글 목록
         window.onload = () => {
             commentList();
+            fileList();
         }
 
         function commentList() {
@@ -176,6 +186,29 @@
                     console.log(error)
                     }
             })
+        }
+
+        function fileList() {
+            const postId = [[ ${post.postId} ]];
+            const response = getJson(`/posts/${postId}/files`);
+
+            if ( !response.length ) {
+                return false;
+                }
+
+            let fileHtml = '<div class="file_down"><div class="cont">';
+            response.forEach(row => {
+                fileHtml += `
+                    <a href="javascript:alert('준비 중입니다.');">
+                        <span class="icons">
+                            <i class="fas fa-folder-open"></i>
+                        </span>
+                        ${row.originalName}
+                    </a>`;
+            })
+            fileHtml += '</div></div>';
+
+            document.getElementById('files').innerHTML = fileHtml;
         }
 
         // 댓글 저장

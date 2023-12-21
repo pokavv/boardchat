@@ -16,4 +16,26 @@
             )
         </foreach>
     </insert>
+
+    <select id="fileListByPostId" parameterType="long" resultType="com.hello.boardchat.domain.FileResponse">
+        select *
+        from file_table
+        where post_id = #{postId}
+        order by file_id
+    </select>
+
+    <select id="fileListByFileId" parameterType="list" resultType="com.hello.boardchat.domain.FileResponse">
+        select *
+        from file_table
+        where file_id in
+            <foreach collection="list" item="fileId" open="(" separator="," close=")">
+                #{fileId}
+            </foreach>
+        order by file_id
+    </select>
+
+    <delete id="deleteFileByFileId" parameterType="long">
+        delete from file_table
+        where file_id = #{fileId}
+    </delete>
 </mapper>
