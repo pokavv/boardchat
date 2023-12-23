@@ -97,6 +97,7 @@
 </th:block>
 </body>
 </html>
+
 <script th:inline="javascript">
     /*<![CDATA[*/
         $(".cm_re_info > button").click(function(){
@@ -190,11 +191,10 @@
 
         function fileList() {
             const postId = [[ ${post.postId} ]];
-            const response = getJson(`/posts/${postId}/files`);
-
+            const response = getScript(`/posts/${post.postId}/files`);
             if ( !response.length ) {
                 return false;
-                }
+            }
 
             let fileHtml = '<div class="file_down"><div class="cont">';
             response.forEach(row => {
