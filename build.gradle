@@ -26,6 +26,9 @@ dependencies {
 
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 
+	// 채팅 jsp 페이지
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
 	// validation 추가
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 

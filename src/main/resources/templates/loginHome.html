@@ -14,9 +14,15 @@
     <hr class="my-4">
     <div class="row">
         <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg" type="button"
+            <button class="w-100 btn btn-success btn-lg" type="button"
                     th:onclick="|location.href='@{/posts}'|">
                 게시판
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-info btn-lg" type="button"
+                    th:onclick="|location.href='@{/chat}'|">
+                채팅방
             </button>
         </div>
         <div class="col">
