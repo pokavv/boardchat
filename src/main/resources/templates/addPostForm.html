@@ -69,7 +69,6 @@
 </div>
 <script th:inline="javascript">
     /*<![CDATA[*/
-
     const removeFileId = (function() {
         const ids = [];
         return {
@@ -81,8 +80,9 @@
         },
         getAll() {
             return ids;
+            }
         }
-    }());
+    });
 
     // 파일 선택
     function selectFile(element) {
