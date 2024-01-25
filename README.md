@@ -16,7 +16,7 @@ WebSocket 을 이용해서 실시간 채팅을 구현한 Springboot 게시판 �
 - 'lombok'
 
 ## 🔍 프로젝트 흐름
-
+![boardchat 프로젝트 다이어그램](./boardchat-diagram.png)
 
 ## 📌 주요 기능
 #### 회원관리
